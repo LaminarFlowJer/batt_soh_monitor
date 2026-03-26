@@ -61,7 +61,7 @@ class BatteryTelemetry:
 @dataclass(frozen=True)
 class BatteryThresholds:
     min_temp_c: float = 5.0
-    max_temp_c: float = 55.0
+    max_temp_c: float = 80.0
     max_discharge_current_a: float = 320.0
     max_charge_current_a: float = 180.0
     min_pack_voltage_v: float = 560.0
