@@ -1,0 +1,247 @@
+VERSION "1.0.0-PRELIM"
+
+NS_ :
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	BA_DEF_DEF_
+	VAL_TABLE_
+	SIG_VALTYPE_
+
+BS_:
+
+BU_: BMS PCU
+
+
+BO_ 256 BMS_PackStatus: 8 BMS
+ SG_ BMS_PackVoltage : 0|16@1+ (0.1,0) [0|1000] "V" PCU
+ SG_ BMS_PackCurrent : 16|16@1- (0.1,0) [-1500|1500] "A" PCU
+ SG_ BMS_SOC : 32|8@1+ (0.5,0) [0|100] "%" PCU
+ SG_ BMS_SOH : 40|8@1+ (0.5,0) [0|100] "%" PCU
+ SG_ BMS_State : 48|4@1+ (1,0) [0|15] "" PCU
+ SG_ BMS_PackStatus_Counter : 52|4@1+ (1,0) [0|15] "" PCU
+ SG_ BMS_PackStatus_CRC : 56|8@1+ (1,0) [0|255] "" PCU
+
+BO_ 257 BMS_PowerLimits: 8 BMS
+ SG_ BMS_MaxDischargeCurrent : 0|12@1+ (0.5,0) [0|2000] "A" PCU
+ SG_ BMS_MaxRegenCurrent : 12|12@1+ (0.5,0) [0|2000] "A" PCU
+ SG_ BMS_MaxDischargePower : 24|12@1+ (0.25,0) [0|1000] "kW" PCU
+ SG_ BMS_MaxRegenPower : 36|12@1+ (0.25,0) [0|1000] "kW" PCU
+ SG_ BMS_PowerLimits_Counter : 48|4@1+ (1,0) [0|15] "" PCU
+ SG_ BMS_PowerLimits_CRC : 56|8@1+ (1,0) [0|255] "" PCU
+
+BO_ 258 BMS_CellVoltages: 8 BMS
+ SG_ BMS_CellVoltMax : 0|16@1+ (0.001,0) [0|5] "V" PCU
+ SG_ BMS_CellVoltMin : 16|16@1+ (0.001,0) [0|5] "V" PCU
+ SG_ BMS_CellVoltMaxIdx : 32|10@1+ (1,0) [0|1023] "" PCU
+ SG_ BMS_CellVoltMinIdx : 42|10@1+ (1,0) [0|1023] "" PCU
+
+BO_ 259 BMS_Temperatures: 8 BMS
+ SG_ BMS_CellTempMax : 0|8@1+ (1,-40) [-40|150] "degC" PCU
+ SG_ BMS_CellTempMin : 8|8@1+ (1,-40) [-40|150] "degC" PCU
+ SG_ BMS_CoolantInletTemp : 16|8@1+ (1,-40) [-40|150] "degC" PCU
+ SG_ BMS_CoolantOutletTemp : 24|8@1+ (1,-40) [-40|150] "degC" PCU
+ SG_ BMS_CellTempMaxIdx : 32|10@1+ (1,0) [0|1023] "" PCU
+
+BO_ 260 BMS_ContactorStatus: 8 BMS
+ SG_ BMS_MainPosContactorState : 0|2@1+ (1,0) [0|3] "" PCU
+ SG_ BMS_MainNegContactorState : 2|2@1+ (1,0) [0|3] "" PCU
+ SG_ BMS_PrechargeContactorState : 4|2@1+ (1,0) [0|3] "" PCU
+ SG_ BMS_HVIL_Status : 6|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_ReadyToClose : 7|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_PrechargeStatus : 8|3@1+ (1,0) [0|7] "" PCU
+ SG_ BMS_IsolationResistance : 16|16@1+ (1,0) [0|65535] "kOhm" PCU
+ SG_ BMS_IsolationStatus : 32|2@1+ (1,0) [0|3] "" PCU
+ SG_ BMS_ContactorStatus_Counter : 48|4@1+ (1,0) [0|15] "" PCU
+ SG_ BMS_ContactorStatus_CRC : 56|8@1+ (1,0) [0|255] "" PCU
+
+BO_ 261 BMS_Faults: 8 BMS
+ SG_ BMS_FaultLevel : 0|3@1+ (1,0) [0|7] "" PCU
+ SG_ BMS_ThermalRunawayWarning : 3|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_OverVoltageFault : 4|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_UnderVoltageFault : 5|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_OverCurrentFault : 6|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_OverTempFault : 7|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_IsolationFault : 8|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_CommLossFault : 9|1@1+ (1,0) [0|1] "" PCU
+ SG_ BMS_ActiveFaultCode : 16|16@1+ (1,0) [0|65535] "" PCU
+ SG_ BMS_Faults_Counter : 48|4@1+ (1,0) [0|15] "" PCU
+ SG_ BMS_Faults_CRC : 56|8@1+ (1,0) [0|255] "" PCU
+
+BO_ 512 PCU_Command: 8 PCU
+ SG_ PCU_HVConnectRequest : 0|2@1+ (1,0) [0|3] "" BMS
+ SG_ PCU_PrechargeRequest : 2|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_EmergencyShutdownReq : 3|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_PropulsionMode : 4|4@1+ (1,0) [0|15] "" BMS
+ SG_ PCU_Command_Counter : 48|4@1+ (1,0) [0|15] "" BMS
+ SG_ PCU_Command_CRC : 56|8@1+ (1,0) [0|255] "" BMS
+
+BO_ 513 PCU_PowerDemand: 8 PCU
+ SG_ PCU_DCLinkVoltage : 0|16@1+ (0.1,0) [0|1000] "V" BMS
+ SG_ PCU_RequestedCurrent : 16|16@1- (0.1,0) [-1500|1500] "A" BMS
+ SG_ PCU_PowerDemand : 32|16@1- (0.1,0) [-1000|1000] "kW" BMS
+ SG_ PCU_RegenActive : 48|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_InverterReady : 49|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_PowerDemand_Counter : 52|4@1+ (1,0) [0|15] "" BMS
+ SG_ PCU_PowerDemand_CRC : 56|8@1+ (1,0) [0|255] "" BMS
+
+BO_ 514 PCU_Faults: 8 PCU
+ SG_ PCU_FaultLevel : 0|3@1+ (1,0) [0|7] "" BMS
+ SG_ PCU_InverterTrip : 3|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_OverCurrentFault : 4|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_DesatFault : 5|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_OverTempFault : 6|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_CommLossFault : 7|1@1+ (1,0) [0|1] "" BMS
+ SG_ PCU_ActiveFaultCode : 16|16@1+ (1,0) [0|65535] "" BMS
+
+CM_ "Battery-Propulsion CAN FD network. PRELIMINARY - requires engineering validation. Source of truth: Flow CAN Model.";
+CM_ BU_ BMS "Battery Control Unit (Battery Management System).";
+CM_ BU_ PCU "Propulsion Control Unit.";
+CM_ BO_ 256 "Pack-level electrical status and state of charge/health.";
+CM_ SG_ 256 BMS_PackVoltage "Measured HV pack terminal voltage.";
+CM_ SG_ 256 BMS_PackCurrent "Pack current; positive = discharge.";
+CM_ SG_ 256 BMS_SOC "Usable state of charge.";
+CM_ SG_ 256 BMS_SOH "State of health (capacity-based).";
+CM_ SG_ 256 BMS_State "BMS operating state.";
+CM_ SG_ 256 BMS_PackStatus_Counter "Rolling counter 0-15.";
+CM_ SG_ 256 BMS_PackStatus_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 257 "Instantaneous current and power limits the propulsion system shall respect.";
+CM_ SG_ 257 BMS_MaxDischargeCurrent "Maximum allowed discharge current.";
+CM_ SG_ 257 BMS_MaxRegenCurrent "Maximum allowed regenerative (charge) current.";
+CM_ SG_ 257 BMS_MaxDischargePower "Maximum allowed discharge power.";
+CM_ SG_ 257 BMS_MaxRegenPower "Maximum allowed regenerative power.";
+CM_ SG_ 257 BMS_PowerLimits_Counter "Rolling counter 0-15.";
+CM_ SG_ 257 BMS_PowerLimits_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 258 "Cell voltage extremes.";
+CM_ SG_ 258 BMS_CellVoltMax "Highest cell voltage.";
+CM_ SG_ 258 BMS_CellVoltMin "Lowest cell voltage.";
+CM_ SG_ 258 BMS_CellVoltMaxIdx "Index of highest-voltage cell.";
+CM_ SG_ 258 BMS_CellVoltMinIdx "Index of lowest-voltage cell.";
+CM_ BO_ 259 "Cell and coolant temperatures.";
+CM_ SG_ 259 BMS_CellTempMax "Highest cell temperature.";
+CM_ SG_ 259 BMS_CellTempMin "Lowest cell temperature.";
+CM_ SG_ 259 BMS_CoolantInletTemp "Battery coolant inlet temperature.";
+CM_ SG_ 259 BMS_CoolantOutletTemp "Battery coolant outlet temperature.";
+CM_ SG_ 259 BMS_CellTempMaxIdx "Index of hottest sensor.";
+CM_ BO_ 260 "HV contactor, precharge, HVIL and isolation status.";
+CM_ SG_ 260 BMS_MainPosContactorState "Main positive contactor state.";
+CM_ SG_ 260 BMS_MainNegContactorState "Main negative contactor state.";
+CM_ SG_ 260 BMS_PrechargeContactorState "Precharge contactor state.";
+CM_ SG_ 260 BMS_HVIL_Status "HV interlock loop integrity.";
+CM_ SG_ 260 BMS_ReadyToClose "BMS permits main contactor closure.";
+CM_ SG_ 260 BMS_PrechargeStatus "Precharge sequence status.";
+CM_ SG_ 260 BMS_IsolationResistance "Measured HV isolation resistance.";
+CM_ SG_ 260 BMS_IsolationStatus "Insulation monitoring result.";
+CM_ SG_ 260 BMS_ContactorStatus_Counter "Rolling counter 0-15.";
+CM_ SG_ 260 BMS_ContactorStatus_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 261 "BMS fault summary; sent cyclically and immediately on change.";
+CM_ SG_ 261 BMS_FaultLevel "Highest active fault severity.";
+CM_ SG_ 261 BMS_ThermalRunawayWarning "Thermal runaway / smoke detected.";
+CM_ SG_ 261 BMS_OverVoltageFault "Cell or pack overvoltage.";
+CM_ SG_ 261 BMS_UnderVoltageFault "Cell or pack undervoltage.";
+CM_ SG_ 261 BMS_OverCurrentFault "Pack overcurrent.";
+CM_ SG_ 261 BMS_OverTempFault "Cell overtemperature.";
+CM_ SG_ 261 BMS_IsolationFault "Isolation resistance below threshold.";
+CM_ SG_ 261 BMS_CommLossFault "Loss of PCU_Command reception.";
+CM_ SG_ 261 BMS_ActiveFaultCode "Highest-priority active fault code.";
+CM_ SG_ 261 BMS_Faults_Counter "Rolling counter 0-15.";
+CM_ SG_ 261 BMS_Faults_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 512 "Propulsion commands and HV connection requests to the BMS.";
+CM_ SG_ 512 PCU_HVConnectRequest "Request to connect/disconnect the HV bus.";
+CM_ SG_ 512 PCU_PrechargeRequest "Request precharge of the DC link.";
+CM_ SG_ 512 PCU_EmergencyShutdownReq "Emergency HV de-energization request.";
+CM_ SG_ 512 PCU_PropulsionMode "Current propulsion operating mode.";
+CM_ SG_ 512 PCU_Command_Counter "Rolling counter 0-15.";
+CM_ SG_ 512 PCU_Command_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 513 "Propulsion DC-link measurements and power demand.";
+CM_ SG_ 513 PCU_DCLinkVoltage "Measured inverter DC-link voltage (for precharge completion).";
+CM_ SG_ 513 PCU_RequestedCurrent "Requested DC current; positive = discharge.";
+CM_ SG_ 513 PCU_PowerDemand "Total propulsion power demand; negative = regen.";
+CM_ SG_ 513 PCU_RegenActive "Regenerative braking active.";
+CM_ SG_ 513 PCU_InverterReady "All inverters ready for torque.";
+CM_ SG_ 513 PCU_PowerDemand_Counter "Rolling counter 0-15.";
+CM_ SG_ 513 PCU_PowerDemand_CRC "CRC-8 over bytes 0-6.";
+CM_ BO_ 514 "Propulsion electrical fault summary.";
+CM_ SG_ 514 PCU_FaultLevel "Highest active propulsion fault severity.";
+CM_ SG_ 514 PCU_InverterTrip "Any inverter tripped.";
+CM_ SG_ 514 PCU_OverCurrentFault "Inverter overcurrent.";
+CM_ SG_ 514 PCU_DesatFault "IGBT/SiC desaturation.";
+CM_ SG_ 514 PCU_OverTempFault "Inverter/motor overtemperature.";
+CM_ SG_ 514 PCU_CommLossFault "Loss of BMS message reception.";
+CM_ SG_ 514 PCU_ActiveFaultCode "Highest-priority active fault code.";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "Baudrate" INT 0 1000000;
+BA_DEF_  "BaudrateFD" INT 0 8000000;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","OnChange","OnEvent","IfActive","CyclicAndOnChange";
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT -1e9 1e9;
+BA_DEF_DEF_  "BusType" "CAN FD";
+BA_DEF_DEF_  "Baudrate" 500000;
+BA_DEF_DEF_  "BaudrateFD" 2000000;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN_FD";
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_ "BusType" "CAN FD";
+BA_ "Baudrate" 500000;
+BA_ "BaudrateFD" 2000000;
+BA_ "GenMsgCycleTime" BO_ 256 20;
+BA_ "GenMsgSendType" BO_ 256 0;
+BA_ "VFrameFormat" BO_ 256 14;
+BA_ "GenMsgCycleTime" BO_ 257 20;
+BA_ "GenMsgSendType" BO_ 257 0;
+BA_ "VFrameFormat" BO_ 257 14;
+BA_ "GenMsgCycleTime" BO_ 258 50;
+BA_ "GenMsgSendType" BO_ 258 0;
+BA_ "VFrameFormat" BO_ 258 14;
+BA_ "GenMsgCycleTime" BO_ 259 50;
+BA_ "GenMsgSendType" BO_ 259 0;
+BA_ "VFrameFormat" BO_ 259 14;
+BA_ "GenMsgCycleTime" BO_ 260 20;
+BA_ "GenMsgSendType" BO_ 260 0;
+BA_ "VFrameFormat" BO_ 260 14;
+BA_ "GenMsgCycleTime" BO_ 261 50;
+BA_ "GenMsgSendType" BO_ 261 4;
+BA_ "VFrameFormat" BO_ 261 14;
+BA_ "GenMsgCycleTime" BO_ 512 10;
+BA_ "GenMsgSendType" BO_ 512 0;
+BA_ "VFrameFormat" BO_ 512 14;
+BA_ "GenMsgCycleTime" BO_ 513 20;
+BA_ "GenMsgSendType" BO_ 513 0;
+BA_ "VFrameFormat" BO_ 513 14;
+BA_ "GenMsgCycleTime" BO_ 514 50;
+BA_ "GenMsgSendType" BO_ 514 4;
+BA_ "VFrameFormat" BO_ 514 14;
+VAL_ 256 BMS_State 7 "Shutdown" 6 "Fault" 5 "Charge" 4 "Drive" 3 "Ready" 2 "Precharge" 1 "Standby" 0 "Init" ;
+VAL_ 260 BMS_MainPosContactorState 3 "Error" 2 "Welded" 1 "Closed" 0 "Open" ;
+VAL_ 260 BMS_MainNegContactorState 3 "Error" 2 "Welded" 1 "Closed" 0 "Open" ;
+VAL_ 260 BMS_PrechargeContactorState 3 "Error" 2 "Welded" 1 "Closed" 0 "Open" ;
+VAL_ 260 BMS_HVIL_Status 1 "Closed" 0 "Open" ;
+VAL_ 260 BMS_ReadyToClose 1 "Ready" 0 "NotReady" ;
+VAL_ 260 BMS_PrechargeStatus 4 "Failed" 3 "Timeout" 2 "Complete" 1 "InProgress" 0 "Idle" ;
+VAL_ 260 BMS_IsolationStatus 3 "NotAvailable" 2 "Fault" 1 "Warning" 0 "OK" ;
+VAL_ 261 BMS_FaultLevel 5 "Emergency" 4 "DisconnectRequested" 3 "Derate" 2 "Warning" 1 "Info" 0 "None" ;
+VAL_ 261 BMS_ThermalRunawayWarning 1 "Detected" 0 "None" ;
+VAL_ 261 BMS_OverVoltageFault 1 "Fault" 0 "OK" ;
+VAL_ 261 BMS_UnderVoltageFault 1 "Fault" 0 "OK" ;
+VAL_ 261 BMS_OverCurrentFault 1 "Fault" 0 "OK" ;
+VAL_ 261 BMS_OverTempFault 1 "Fault" 0 "OK" ;
+VAL_ 261 BMS_IsolationFault 1 "Fault" 0 "OK" ;
+VAL_ 261 BMS_CommLossFault 1 "Fault" 0 "OK" ;
+VAL_ 512 PCU_HVConnectRequest 3 "Invalid" 2 "Disconnect" 1 "Connect" 0 "NoRequest" ;
+VAL_ 512 PCU_PrechargeRequest 1 "Request" 0 "NoRequest" ;
+VAL_ 512 PCU_EmergencyShutdownReq 1 "Shutdown" 0 "NoRequest" ;
+VAL_ 512 PCU_PropulsionMode 15 "Invalid" 6 "GroundMaintenance" 5 "RegenDescent" 4 "Cruise" 3 "Transition" 2 "Hover" 1 "Standby" 0 "Off" ;
+VAL_ 513 PCU_RegenActive 1 "Active" 0 "Inactive" ;
+VAL_ 513 PCU_InverterReady 1 "Ready" 0 "NotReady" ;
+VAL_ 514 PCU_FaultLevel 5 "Emergency" 4 "DisconnectRequested" 3 "Derate" 2 "Warning" 1 "Info" 0 "None" ;
+VAL_ 514 PCU_InverterTrip 1 "Fault" 0 "OK" ;
+VAL_ 514 PCU_OverCurrentFault 1 "Fault" 0 "OK" ;
+VAL_ 514 PCU_DesatFault 1 "Fault" 0 "OK" ;
+VAL_ 514 PCU_OverTempFault 1 "Fault" 0 "OK" ;
+VAL_ 514 PCU_CommLossFault 1 "Fault" 0 "OK" ;
